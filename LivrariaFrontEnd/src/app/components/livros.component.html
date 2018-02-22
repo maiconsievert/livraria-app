@@ -1,0 +1,131 @@
+﻿
+<div class="livros">
+    
+    <h5 [class.hidden]="modoEditar" class="teal-text text-lighten-2">Livros em estoque</h5>
+    
+    
+    <table [class.hidden]="modoEditar">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Estoque</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let livro of livros">
+            <td>{{livro.Nome}}</td>
+            <td>{{livro.Autor}}</td>
+            <td>{{livro.Quantidade}}</td>
+            <td>
+                <a href="#!" (click)="editar(livro)" materialize="tooltip" class="tooltipped" data-tooltip="Editar">
+                           <i class="material-icons teal-text text-lighten-2">mode_edit</i>
+                        </a>
+            </td>
+            <td>
+                    <a href="#!" (click)="excluir(livro._id)" materialize="tooltip" class="tooltipped" data-tooltip="Excluir">
+                            <i class="material-icons red-text text-red-2">delete</i>
+                        </a>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+        
+    <br />
+
+    <h5 [class.hidden]="modoEditar" class="teal-text text-lighten-2">Adicionar Livro</h5>
+    <h5 [class.hidden]="!modoEditar" class="teal-text text-lighten-2">Editar Livro</h5>
+
+    <div class="row">
+        <form #form="ngForm" class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" id="nome" name="nome" [(ngModel)]="itemEditarAtual.Nome" type="text" class="validate form-control" required minlength="3" #name="ngModel">
+                    <label for="nome">Título</label>
+
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            Título é obrigatório.
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                            O título precisa ter ao menos 3 caracteres.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" id="autor" name="autor" [(ngModel)]="itemEditarAtual.Autor" type="text" class="validate" class="validate form-control" required minlength="3" #autor="ngModel">
+                    <label for="autor">Autor</label>
+                    <div *ngIf="autor.invalid && (autor.dirty || autor.touched)" class="alert alert-danger">
+                        <div *ngIf="autor.errors.required">
+                            Autor é obrigatório.
+                        </div>
+                        <div *ngIf="autor.errors.minlength">
+                            O autor precisa ter ao menos 3 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" id="quantidade" type="number" name="quantidade" [(ngModel)]="itemEditarAtual.Quantidade" class="validate form-control" required minlength="1" #quantidade="ngModel">
+                    <label for="quantidade">Quantidade em estoque</label>
+                    <div *ngIf="quantidade.invalid && (autor.dirty || autor.touched)" class="alert alert-danger">
+                            <div *ngIf="quantidade.errors.required">
+                                É necessário informar a quantidade no estoque
+                            </div>
+                            <div *ngIf="quantidade.errors.minlength">
+                                Valor de estoque inválido
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <select id="idioma" materialize="material_select" name="idioma" [(ngModel)]="itemEditarAtual.Idioma">
+                        <option value="" disabled selected>Escolha o idioma</option>
+                        <option value="Português">Português</option>
+                        <option value="Inglês">Inglês</option>
+                        <option value="Alemão">Alemão</option>
+                        <option value="Espanhol">Espanhol</option>
+                    </select>
+                    <label>Idioma</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                
+                <div class="input-field col s4">
+                    <input placeholder="" id="paginas" type="text" class="validate" name="paginas" [(ngModel)]="itemEditarAtual.Paginas">
+                    <label for="paginas">Páginas</label>
+                </div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="isbn" type="text" class="validate" name="isbn" [(ngModel)]="itemEditarAtual.Isbn">
+                    <label for="isbn">ISBN</label>
+                </div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="acabamento" type="text" class="validate" name="acabamento" [(ngModel)]="itemEditarAtual.Acabamento">
+                    <label for="acabamento">Acabamento</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button [disabled]="form.invalid" href="#!" class="waves-effect waves-light btn" (click)="salvar()">Salvar</button>
+
+                    <button href="#!" class="waves-effect waves-light btn" (click)="cancelar()">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
